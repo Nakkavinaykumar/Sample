@@ -29,7 +29,7 @@ public class Stream {
 		
 	int[] arr1 = new  int[] {54, 432, 53, 21, 43};
 	//int arr[] = new int[] {54, 432, 53, 21, 43};
-	
+	System.out.println("test");
 	List<Integer> number4 = Arrays.asList(54, 432, 53, 21, 43);
 	List asc=number4.stream().sorted().collect(Collectors.toList());  //asc order
 	System.out.println("asc"+asc);
