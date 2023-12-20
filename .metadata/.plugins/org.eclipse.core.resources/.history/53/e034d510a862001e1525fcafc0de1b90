@@ -1,0 +1,47 @@
+package com.taskmangement.taskproject.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.taskmangement.taskproject.dto.JWTAuthResponse;
+import com.taskmangement.taskproject.dto.LoginDto;
+import com.taskmangement.taskproject.dto.UserDto;
+import com.taskmangement.taskproject.security.JwtTokenProvider;
+import com.taskmangement.taskproject.serviceImpl.UserServiceImpl;
+
+@RestController
+//@CrossOrigin(origins = "http://localhost:8081")
+@RequestMapping("/api/auth")
+public class AuthController {
+	
+	@Autowired
+	private UserServiceImpl userservice;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private JwtTokenProvider jwttokenProvider;
+	
+	@PostMapping("/register")
+	public ResponseEntity<UserDto> saveuser(@RequestBody UserDto userdto){
+	return new ResponseEntity<>(userservice.createUser(userdto),HttpStatus.CREATED);
+	}
+	@PostMapping("/login")
+	public  ResponseEntity<JWTAuthResponse>loginUser(@RequestBody LoginDto logindto){
+	Authentication authentication= 	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(logindto.getEmail(), logindto.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println(authentication);
+		String token =jwttokenProvider.generateToken(authentication);
+		return ResponseEntity.ok(new JWTAuthResponse(token));
+	} 
+
+}
