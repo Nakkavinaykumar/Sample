@@ -39,13 +39,14 @@ class Student1 implements Serializable {
 
 public class SerializationDeserializatio {
     public static void main(String[] args) {
-        // Serialization
+        // 
+    	/*Serialization*/
         Student1 Student1 = new Student1("Alice", 20);
         String filename = "D:\\Student1.ser";
 
         try (FileOutputStream fileOut = new FileOutputStream(filename);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-
+System.out.println("ggggg");
             out.writeObject(Student1);
             System.out.println("Student1 object serialized and saved to " + filename);
         } catch (IOException e) {
