@@ -39,7 +39,8 @@ class Student1 implements Serializable {
 
 public class SerializationDeserializatio {
     public static void main(String[] args) {
-        // Serialization
+        // 
+    	/*Serialization*/
         Student1 Student1 = new Student1("Alice", 20);
         String filename = "D:\\Student1.ser";
 
