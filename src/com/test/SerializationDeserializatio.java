@@ -46,7 +46,7 @@ public class SerializationDeserializatio {
 
         try (FileOutputStream fileOut = new FileOutputStream(filename);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-
+System.out.println("ggggg");
             out.writeObject(Student1);
             System.out.println("Student1 object serialized and saved to " + filename);
         } catch (IOException e) {
